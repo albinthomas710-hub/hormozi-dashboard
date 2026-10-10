@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$100M Dashboard & Mentors Library</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #09090b; --surface: #18181b; --surface-hover: #27272a; --border: #3f3f46;
+      --text: #f4f4f5; --text-dim: #a1a1aa; --accent-red: #ef4444; --accent-yellow: #f59e0b;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;padding:30px;}
+    .container{max-width:1280px;margin:0 auto;}
+    header{text-align:center;padding-bottom:28px;border-bottom:1px solid var(--border);margin-bottom:32px;}
+    header h1{font-size:2.6rem;font-weight:900;letter-spacing:3px;text-transform:uppercase;}
+    header h1 span{color:var(--accent-red);}
+    header p{color:var(--text-dim);margin-top:8px;font-size:0.95rem;}
+    .nb-btn{display:inline-block;margin-top:18px;padding:13px 26px;background:var(--accent-yellow);color:#000;text-decoration:none;font-weight:700;font-size:0.95rem;border-radius:6px;transition:opacity .2s;}
+    .nb-btn:hover{opacity:.85;}
+    
+    .grid{display:grid;grid-template-columns:2fr 1fr;gap:24px;}
+    .vault, .pad-panel{background:var(--surface);border-radius:12px;padding:24px;}
+    
+    .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid var(--border); padding-bottom: 10px; }
+    .tab { background: transparent; color: var(--text-dim); border: none; font-size: 1.2rem; font-family: 'Space Grotesk', sans-serif; font-weight: 700; cursor: pointer; padding: 5px 10px; transition: all 0.2s ease; }
+    .tab:hover { color: var(--text); }
+    .tab.active { color: var(--accent-red); border-bottom: 3px solid var(--accent-red); }
+
+    .category{margin-bottom:24px;}
+    .category-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+    .category-header span{font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);}
+    
+    .book-item{background:var(--surface-hover);border-radius:7px;padding:12px 16px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;gap:12px;transition:background .15s;}
+    .book-item:hover{background:#3f3f46;}
+    .book-item a{color:var(--text);text-decoration:none;font-weight:600;font-size:0.875rem;flex:1;line-height:1.4;}
+    .book-item a:hover{color:var(--accent-yellow);}
+    .ext-tag{font-size:0.7rem;color:#71717a;margin-left:6px;text-transform:uppercase;}
+    
+    select{background:var(--surface);color:var(--text-dim);border:1px solid var(--border);padding:5px 8px;border-radius:5px;font-size:0.75rem;cursor:pointer;flex-shrink:0;}
+    select:focus{outline:none;border-color:var(--accent-red);}
+
+    .pad-panel{display:flex;flex-direction:column;}
+    .pad-title{font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent-red);margin-bottom:16px;}
+    textarea{flex:1;min-height:500px;background:#111;color:#fff;border:1px solid var(--border);padding:16px;font-family:inherit;font-size:0.9rem;border-radius:8px;resize:vertical;line-height:1.7;}
+    textarea:focus{outline:none;border-color:var(--accent-red);}
+    .autosave{font-size:0.7rem;color:#71717a;margin-top:8px;text-align:right;}
+    
+    @media(max-width:900px){.grid{grid-template-columns:1fr;}}
+  
+    .add-form { display: flex; gap: 10px; margin-bottom: 20px; background: #222; padding: 15px; border-radius: 8px; flex-wrap: wrap; }
+    .add-form input, .add-form select { background: #111; border: 1px solid #444; color: #fff; padding: 8px 12px; border-radius: 4px; flex: 1; min-width: 150px; }
+    .add-form button { background: var(--accent-red); color: white; border: none; padding: 8px 15px; font-weight: bold; border-radius: 4px; cursor: pointer; }
+    .add-form button:hover { opacity: 0.8; }
+    .add-form-title { width: 100%; color: var(--accent-yellow); font-size: 0.9rem; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1><span>$100M</span> Masterpiece</h1>
+    <p>Your central Alex Hormozi hub & Mentors Library</p>
+    <a href="https://docs.google.com/document/d/1iOUwwP5LlQ-crEoJ8KkwQEW4pvLYXWzvhORBpLYsVrs/edit?tab=t.3p0hxnybnclu#heading=h.c5o6xdnoqz53" target="_blank" class="nb-btn">🧠 Clear Doubts in NotebookLM</a>
+  </header>
+
+  <div class="grid">
+    <div class="vault">
+      
+      <div class="tabs">
+        <button id="tab-hormozi" class="tab active" onclick="switchTab('hormozi')">Alex Hormozi Vault</button>
+        <button id="tab-mentors" class="tab" onclick="switchTab('mentors')">🎓 Mentors Library</button>
+      </div>
+
+      <!-- HORMOZI VAULT CONTENT -->
+      <div id="content-hormozi">
+        <div class="category"><div class="category-header"><span>📚 The Main Books</span></div><div id="cat-main"></div></div>
+        <div class="category"><div class="category-header"><span>📗 Bonus Chapters</span></div><div id="cat-bonus"></div></div>
+        <div class="category"><div class="category-header"><span>📘 The Playbooks</span></div><div id="cat-playbooks"></div></div>
+        <div class="category"><div class="category-header"><span>📋 Checklists</span></div><div id="cat-checklists"></div></div>
+        <div class="category"><div class="category-header"><span>📦 Extras</span></div><div id="cat-extras"></div></div>
+      </div>
+
+                  <!-- MENTORS LIBRARY CONTENT -->
+      <div id="content-mentors" style="display: none;">
+        
+        <div class="add-form">
+            <div class="add-form-title">Create New Category</div>
+            <input type="text" id="new-cat-name" placeholder="e.g. Psychology">
+            <button onclick="addCategory()">+ Add Category</button>
+        </div>
+
+        <div class="add-form">
+            <div class="add-form-title">Add Book to Category</div>
+            <select id="add-book-cat">
+                <!-- populated by js -->
+            </select>
+            <input type="text" id="new-book-title" placeholder="Book Title">
+            <input type="text" id="new-book-author" placeholder="Author (optional)">
+            <button onclick="addBook()">+ Add Book</button>
+        </div>
+
+        <div id="mentors-dynamic-container"></div>
+      </div>
+
+    </div>
+
+    <!-- BRAINSTORM PAD -->
+    <div class="pad-panel">
+      <div class="pad-title">⚡ Brainstorming Pad</div>
+      <textarea id="pad" placeholder="Dump your ideas, offers, strategies here...&#10;&#10;Auto-saves as you type."></textarea>
+      <div class="autosave" id="autosave-status">Auto-saved</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function switchTab(tabId) {
+  document.getElementById('tab-hormozi').classList.remove('active');
+  document.getElementById('tab-mentors').classList.remove('active');
+  document.getElementById('content-hormozi').style.display = 'none';
+  document.getElementById('content-mentors').style.display = 'none';
+  
+  document.getElementById('tab-' + tabId).classList.add('active');
+  document.getElementById('content-' + tabId).style.display = 'block';
+}
+
+var hCategories = {
+  "cat-main": [
+    { file: "$100M OFFERS.pdf",                                          label: "$100M Offers" },
+    { file: "$100M Leads How to Get Strangers To Want To Buy Your Stuff .pdf", label: "$100M Leads (Full Book)" },
+    { file: "$100M Money Models - How To Make Money  1.pdf",             label: "$100M Money Models (PDF)" },
+    { file: "100M Money Models - How To Make Money.epub",                label: "$100M Money Models (EPUB)" },
+    { file: "$100M Money Models - Master Doc.docx",                      label: "(Blackbook) $100M Money Models - Master Doc" },
+    { file: "$100M MONEY MODELS ! How to Make Money Get Rich Fast Summary.mp3", label: "$100M Money Models (Audio Summary)" },
+    { file: "$100M Lost Chapters by Alex Hormozi.pdf",                   label: "$100M Lost Chapters" },
+    { file: "100M Offers The Lost Chapter (Alex Hormozi).pdf",           label: "$100M Offers - The Lost Chapter" },
+    { file: "100M Offers (Alex Hormozi).pdf",                            label: "$100M Offers (Alt Version)" }
+  ],
+  "cat-bonus": [
+    { file: "$100M Leads 2 Bonus Chapters Alex Hormozi BY @VAWZINE V.pdf", label: "$100M Leads - 2 Bonus Chapters" },
+    { file: "100m money models - delivery system, retention.pdf",         label: "Money Models - Delivery System & Retention" },
+    { file: "100m money models - profit system, price raise.pdf",         label: "Money Models - Profit System & Price Raise" }
+  ],
+  "cat-playbooks": [
+    { file: "$100M Branding Playbook.pdf",       label: "$100M Branding Playbook" },
+    { file: "$100M Fast Cash Playbook.pdf",      label: "$100M Fast Cash Playbook" },
+    { file: "$100M Goated Ads Playbook.pdf",     label: "$100M Goated Ads Playbook" },
+    { file: "$100M Hooks Playbook.pdf",          label: "$100M Hooks Playbook" },
+    { file: "$100M Journal.pdf",                 label: "$100M Journal" },
+    { file: "$100M Lead Nurture Playbook.pdf",   label: "$100M Lead Nurture Playbook" },
+    { file: "$100M Lifetime Value Playbook.pdf", label: "$100M Lifetime Value Playbook" },
+    { file: "$100M Marketing Machine.pdf",       label: "$100M Marketing Machine" },
+    { file: "$100M Pricing Playbook.pdf",        label: "$100M Pricing Playbook" },
+    { file: "$100M Price Raise Playbook.pdf",    label: "$100M Price Raise Playbook" },
+    { file: "$100M Retention Playbook.pdf",      label: "$100M Retention Playbook" },
+    { file: "$100M Scaling Roadmap.pdf",         label: "$100M Scaling Roadmap" },
+    { file: "LEAKED Pricing Playbook.pdf",       label: "LEAKED Pricing Playbook" }
+  ],
+  "cat-checklists": [
+    { file: "Offer Creation Checklist pdf",         label: "Offer Creation Checklist" },
+    { file: "Bonus-Creation-Checklist.pdf",         label: "Bonus Creation Checklist" },
+    { file: "Pricing-Value-Checklist pdf",          label: "Pricing-Value Checklist" },
+    { file: "Pick-Your-Niche-Checklist.pdf",        label: "Pick Your Niche Checklist" },
+    { file: "Product-Naming-Checklist pdf",         label: "Product Naming Checklist" },
+    { file: "Unbeatable-Guarantee-Checklist pdf",   label: "Unbeatable Guarantee Checklist" },
+    { file: "Scarcity-Urgency-Checklist pdf",       label: "Scarcity & Urgency Checklist" }
+  ],
+  "cat-extras": [
+    { file: "Affiliate Blackbook.pdf",                    label: "Affiliate Blackbook" },
+    { file: "Leila Hormozis 5 Scaling Framework SOPs.pdf",label: "Leila Hormozi - 5 Scaling Framework SOPs" },
+    { file: "scaling spreadsheet.xls",                   label: "Scaling Spreadsheet (Excel)" },
+    { file: "BONUS.zip",                                  label: "BONUS Pack (ZIP)" },
+    { file: "__gdoc__",                                   label: "Alex Hormozi - NotebookLM Master Doc (Google Docs)", url: "https://docs.google.com/document/d/1iOUwwP5LlQ-crEoJ8KkwQEW4pvLYXWzvhORBpLYsVrs/edit?tab=t.3p0hxnybnclu#heading=h.c5o6xdnoqz53" }
+  ]
+};
+
+var defaultMentorsCategories = {
+  "Entrepreneurship": [
+    {label: "Dotcom Secrets - by Russell Brunson"},
+    {label: "Expert Secrets - by Russell Brunson"},
+    {label: "Build - by Tony Fadell"},
+    {label: "The Third Door - by Alex Banayan"},
+    {label: "2 Second Lean - by Paul A. Akers"},
+    {label: "The Lean Startup - by Eric Ries"},
+    {label: "Zero to One - by Peter Thiel"},
+    {label: "The Innovator\'s Dilemma - by Clayton Christensen"},
+    {label: "The Hard Thing About Hard Things - by Ben Horowitz"},
+    {label: "Hustle - by Neil Patel, Patrick Vlaskovits, and Jonas Koffler"},
+    {label: "The Great Game of Business - by Jack Stack"},
+    {label: "The Millionaire Master Plan - by Roger James Hamilton"},
+    {label: "The Business Playbook - by Chris Ronzio"},
+    {label: "The Elevation Approach - by Tina Wells"},
+    {label: "Chillpreneur - by Denise Duffield-Thomas"},
+    {label: "10X Is Easier Than 2X - by Dan Sullivan"},
+    {label: "Good to Great - by Jim Collins"},
+    {label: "Linchpin - by Seth Godin"},
+    {label: "The 7-Power Contractor - by Al Levi"}
+  ],
+  "Productivity": [
+    {label: "Atomic Habits - by James Clear"},
+    {label: "Getting Things Done - by David Allen"},
+    {label: "The 4-Hour Workweek - by Timothy Ferriss"},
+    {label: "Deep Work - by Cal Newport"},
+    {label: "Essentialism - by Greg McKeown"},
+    {label: "The 12 Week Year - by Brian P. Moran"},
+    {label: "The ONE Thing - by Gary Keller & Jay Papasan"},
+    {label: "Eat That Frog! - by Brian Tracy"},
+    {label: "Do Less - by Kate Northrup"},
+    {label: "Indistractable - by Nir Eyal"},
+    {label: "The Power of Less - by Leo Babauta"}
+  ],
+  "Real Estate": [
+    {label: "Time Machine - by Kris Krohn"}
+  ],
+  "Sales": [
+    {label: "To Sell Is Human - by Daniel H. Pink"},
+    {label: "The Full Fee Agent - by Chris Voss, Steve Shull"},
+    {label: "Sell Like Crazy - Sabri Suby"},
+    {label: "The New Model in Selling - by Jeremy Miner"},
+    {label: "Zero Resistance Selling - by Dr. Maxwell Maltz"},
+    {label: "Fanatical Prospecting - by Jeb Blount"}
+  ],
+  "Self Improvement": [
+    {label: "How to Win Friends and Influence People - by Dale Carnegie"},
+    {label: "The Power of One More - by Ed Mylett"},
+    {label: "Breaking the Habit of Being Yourself - by Dr. Joe Dispenza"},
+    {label: "The Man Who Tapped the Secrets of the Universe - by Glenn Clark"},
+    {label: "The 7 Habits of Highly Effective People - by Stephen R. Covey"},
+    {label: "The Power of Now - by Eckhart Tolle"},
+    {label: "Mindset: The New Psychology of Success - by Carol S. Dweck"},
+    {label: "Grit: The Power of Passion and Perseverance - by Angela Duckworth"},
+    {label: "The Slight Edge - by Jeff Olson"},
+    {label: "You Are a Badass - by Jen Sincero"},
+    {label: "The Four Agreements - by Don Miguel Ruiz"},
+    {label: "The Courage to Be Disliked - by Fumitake Koga, Ichiro Kishimi"},
+    {label: "The Tipping Point - by Malcolm Gladwell"},
+    {label: "Ego Is the Enemy - by Ryan Holiday"},
+    {label: "The Big Leap - by Gay Hendricks"},
+    {label: "Chill and Prosper - by Denise Duffield-Thomas"},
+    {label: "Loving What Is - by Byron Katie"},
+    {label: "The Untethered Soul - by Michael A. Singer"},
+    {label: "The 5 Love Languages - by Gary Chapman"}
+  ],
+  "Stories": [
+    {label: "Shoe Dog - by Phil Knight"},
+    {label: "Benjamin Franklin’s Autobiography - by Benjamin Franklin"},
+    {label: "Outliers - by Malcolm Gladwell"},
+    {label: "The Alchemist - by Paulo Coelho"},
+    {label: "The Celestine Prophecy - by James Redfield"}
+  ],
+  "Strategy & Philosophy": [
+    {label: "The Art of War - by Sun Tzu"},
+    {label: "The 48 Laws of Power - by Robert Greene"},
+    {label: "Blue Ocean Strategy - by W. Chan Kim & Renée Mauborgne"},
+    {label: "The Principles of Scientific Management - by Frederick Winslow Taylor"},
+    {label: "The Obstacle is the Way - by Ryan Holiday"},
+    {label: "Stillness is the Key - by Ryan Holiday"},
+    {label: "Thinking in Bets - by Annie Duke"},
+    {label: "12 Rules for Life - by Jordan Peterson"},
+    {label: "Beyond Order - by Jordan Peterson"},
+    {label: "The Almanack of Naval Ravikant - by Eric Jorgenson"},
+    {label: "The Secret - by Rhonda Byrne"},
+    {label: "Why Nations Fail - by Daron Acemoglu & James Robinson"},
+    {label: "The Holy Bible"},
+    {label: "Conversations with God - by Neale Donald Walsch"}
+  ],
+  "Welcome Note": [
+    {label: "Essentialisms -Greg Mckeown"},
+    {label: "Emotional Intelligence Habits -Travis Bradberry"},
+    {label: "Blue Ocean Strategy-W.Chan Kim And Renee Mauborgne"},
+    {label: "How To Win Friends And Influence People -Dale Carnegie"},
+    {label: "Win Every Argument-Mehdi Hasan"},
+    {label: "Principles-Ray Dalio"},
+    {label: "Atomic Habits-James Clear"},
+    {label: "48-Laws Of Power -By Robert Greene"},
+    {label: "The Concise Art Of Seduction -By Robert Greene"},
+    {label: "The Laws Of Human Nature -By Robert Greene"},
+    {label: "The Concise 33-Strategies Of War -By Robert Greene"},
+    {label: "The Concise Mastery-By Robert Greene"},
+    {label: "The Almanack of Naval Ravikant"},
+    {label: "Leverage, Wealth Without Burnout, Long-Term Thinking."},
+    {label: "Poor Charlie’s Almanack"},
+    {label: "Multi-Disciplinary Thinking. This Is How Killers Think."},
+    {label: "Principles"},
+    {label: "Decision-Making Systems > Intelligence."},
+    {label: "The War of Art"},
+    {label: "Can’t Hurt Me"},
+    {label: "This Is Where God-Mode Comes From."},
+    {label: "$100M Offers"},
+    {label: "$100M Leads"},
+    {label: "The Personal MBA"},
+    {label: "This Is Empire-Level Mindset."},
+    {label: "The Sovereign Individual"},
+    {label: "Meditations"}
+  ],
+  "Finance & Money": [
+    {label: "The Richest Man in Babylon - by George S. Clason"},
+    {label: "Think and Grow Rich - by Napoleon Hill"},
+    {label: "Rich Dad, Poor Dad - by Robert Kiyosaki"},
+    {label: "The Psychology of Money - by Morgan Housel"},
+    {label: "Stop Acting Rich - by Thomas J. Stanley"},
+    {label: "Multiple Streams of Income - by Robert G. Allen"},
+    {label: "Tax-Free Wealth - by Tom Wheelwright"},
+    {label: "The Soul of Money - by Lynne Twist"},
+    {label: "Faith-Made Millionaire - by Matt Sapaula"},
+    {label: "Increase Your Financial IQ - by Robert Kiyosaki"},
+    {label: "Naked Finance - by Adam Meckin"},
+    {label: "Freakonomics - by Steven Levitt & Stephen Dubner"},
+    {label: "Misbehaving - by Richard Thaler"},
+    {label: "My Father Knew the Secret - Brian Proctor"}
+  ],
+  "Health": [
+    {label: "Being Mortal - by Atul Gawande"},
+    {label: "Outlive - by Peter Attia"},
+    {label: "Breath - by James Nestor"},
+    {label: "The Man Who Mistook His Wife for a Hat - by Oliver Sacks"},
+    {label: "The House of God - by Samuel Shem"},
+    {label: "Becoming Supernatural - by Dr. Joe Dispenza"},
+    {label: "You Can Heal Your Life - by Louise Hay"}
+  ],
+  "Leadership": [
+    {label: "Start With Why - by Simon Sinek"},
+    {label: "Leaders Eat Last - by Simon Sinek"},
+    {label: "Measure What Matters - by John Doerr"},
+    {label: "Dare to Lead - by Brené Brown"},
+    {label: "Education is Freedom - by James W. Keyes"},
+    {label: "The Power of Positive Leadership - by Jon Gordon"},
+    {label: "The Advantage - by Patrick Lencioni"},
+    {label: "Leading Change - by John Kotter"},
+    {label: "How Leadership Actually Works - by Larry Yatch"},
+    {label: "The Servant - by James Hunter"},
+    {label: "The Culture Code by Daniel Coyle"}
+  ],
+  "Marketing & Media": [
+    {label: "Contagious - by Jonah Berger"},
+    {label: "Building a StoryBrand - by Donald Miller"},
+    {label: "This Is Marketing - by Seth Godin"},
+    {label: "Marketing 4.0 - by Philip Kotler, Hermawan Kartajaya, Iwan Setiawan"},
+    {label: "Marketing Made Simple - by Donald Miller"},
+    {label: "Watertight Marketing - by Bryony Thomas"}
+  ],
+  "Negotiation & Persuasion": [
+    {label: "Pitch Anything - by Oren Klaff"},
+    {label: "Influence: The Psychology of Persuasion - by Robert B. Cialdini"},
+    {label: "Getting to Yes - by Roger Fisher, William Ury, Bruce Patton"}
+  ],
+};
+
+var statuses = JSON.parse(localStorage.getItem('hStatuses') || '{}');
+
+window.saveStatus = function(f, v) {
+  statuses[f] = v;
+  localStorage.setItem('hStatuses', JSON.stringify(statuses));
+};
+
+function createSelectHtml(id, st) {
+  var safeId = id.replace(/'/g, "&apos;");
+  return `<select onchange="saveStatus('${safeId}', this.value)">
+    <option value="wishlist" ${st==='wishlist'?'selected':''}>Wishlist</option>
+    <option value="reading" ${st==='reading'?'selected':''}>📖 Reading</option>
+    <option value="finished" ${st==='finished'?'selected':''}>✅ Finished</option>
+  </select>`;
+}
+
+// Render Hormozi
+Object.keys(hCategories).forEach(function(catId) {
+  var container = document.getElementById(catId);
+  if(!container) return;
+  hCategories[catId].forEach(function(item) {
+    var st = statuses[item.file] || 'wishlist';
+    var ext = item.file.split('.').pop().toUpperCase();
+    var div = document.createElement('div');
+    div.className = 'book-item';
+    var href = item.url ? item.url : 'Resources/' + encodeURIComponent(item.file);
+    var extLabel = item.url ? 'LINK' : ext;
+    
+    div.innerHTML = `<a href="${href}" target="_blank">${item.label}<span class="ext-tag">${extLabel}</span></a>` + createSelectHtml(item.file, st);
+    
+    container.appendChild(div);
+  });
+});
+
+
+
+var mentorsCategories = JSON.parse(localStorage.getItem('mentorsV3')) || defaultMentorsCategories;
+
+// Auto-cleanup user mistakes
+if (mentorsCategories['dominos']) delete mentorsCategories['dominos'];
+if (mentorsCategories['Dominos']) delete mentorsCategories['Dominos'];
+if (mentorsCategories['dominoes']) delete mentorsCategories['dominoes'];
+if (mentorsCategories['Dominoes']) delete mentorsCategories['Dominoes'];
+saveMentors();
+
+
+function saveMentors() {
+    localStorage.setItem('mentorsV3', JSON.stringify(mentorsCategories));
+}
+
+function renderMentors() {
+    var container = document.getElementById('mentors-dynamic-container');
+    if (!container) return;
+    container.innerHTML = '';
+    
+    var selectCat = document.getElementById('add-book-cat');
+    if (selectCat) selectCat.innerHTML = '';
+    
+    Object.keys(mentorsCategories).forEach(function(catName) {
+        // catName is now the actual pretty name like "Finance & Money"
+        if (selectCat) {
+            var opt = document.createElement('option');
+            opt.value = catName;
+            opt.textContent = catName;
+            selectCat.appendChild(opt);
+        }
+        
+        var safeId = catName.toLowerCase().replace(/[^a-z0-9]/g, '');
+        
+        var catDiv = document.createElement('div');
+        catDiv.className = 'category';
+        catDiv.innerHTML = `<div class="category-header"><span>📚 ${catName.toUpperCase()}</span></div><div id="dynamic-${safeId}"></div>`;
+        container.appendChild(catDiv);
+        
+        var listContainer = document.getElementById(`dynamic-${safeId}`);
+        
+        mentorsCategories[catName].forEach(function(item) {
+            var id = item.label; 
+            var st = statuses[id] || 'wishlist';
+            var div = document.createElement('div');
+            div.className = 'book-item';
+            div.innerHTML = `<a class="item-link" style="pointer-events: none; cursor: default;">${item.label}</a>` + createSelectHtml(id, st);
+            listContainer.appendChild(div);
+        });
+    });
+}
+
+window.addCategory = function() {
+    var name = document.getElementById('new-cat-name').value.trim();
+    if (!name) return;
+    // Use the raw typed name as the key!
+    if (!mentorsCategories[name]) {
+        mentorsCategories[name] = [];
+        saveMentors();
+        renderMentors();
+    }
+    document.getElementById('new-cat-name').value = '';
+};
+
+window.addBook = function() {
+    var catName = document.getElementById('add-book-cat').value;
+    var title = document.getElementById('new-book-title').value.trim();
+    var author = document.getElementById('new-book-author').value.trim();
+    if (!title || !catName) return;
+    
+    var label = author ? title + " - by " + author : title;
+    mentorsCategories[catName].push({label: label});
+    saveMentors();
+    renderMentors();
+    
+    document.getElementById('new-book-title').value = '';
+    document.getElementById('new-book-author').value = '';
+};
+
+// Initial Render
+renderMentors();
+
+var pad = document.getElementById('pad');
+
+
+pad.value = localStorage.getItem('hPad') || '';
+pad.addEventListener('input', function() {
+  localStorage.setItem('hPad', pad.value);
+  document.getElementById('autosave-status').textContent = 'Saved ' + new Date().toLocaleTimeString();
+});
+</script>
+</body>
+</html>
